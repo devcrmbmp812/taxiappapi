@@ -1,0 +1,8 @@
+node_modules/
+public/uploads/
+.gatsby-context.js
+.DS_Store
+*/.DS_Store
+.intermediate-representation/
+.cache/
+yarn.lock
