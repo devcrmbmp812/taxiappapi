@@ -953,7 +953,8 @@ class UserApiController extends Controller
         {
             $error_messages = implode(',', $validator->messages()->all());
             $response_array = array('success' => false, 'error' => Helper::get_error_message(101), 'error_code' => 101, 'error_messages' => $error_messages);
-        } else {
+        } else 
+        {
             Log::info('Create request start');
             // Check the user filled the payment details
 
@@ -1077,26 +1078,19 @@ class UserApiController extends Controller
                                 //
                         $check_waiting_provider_count = $sort_waiting_providers['check_waiting_provider_count'];
 
-/*
-                        if(count($final_providers) == $check_waiting_provider_count){
-                            return response()->json($response_array = array('success' => false, 'error' => Helper::get_error_message(112), 'error_code' => 112) , 200);
-
-                        }
-                        */
-
                         $url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins=".$latitude.",".$longitude."&destinations=".$latitudeD.",".$longitudeD."&mode=driving&language=en-EN&sensor=false";
 
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-    $response = curl_exec($ch);
-    curl_close($ch);
-    $response_a = json_decode($response, true);
-    $distance2 = $response_a['rows'][0]['elements'][0]['distance']['value']/1000;
-    $time = $response_a['rows'][0]['elements'][0]['duration']['value']/60;
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            $response = curl_exec($ch);
+            curl_close($ch);
+            $response_a = json_decode($response, true);
+            $distance2 = $response_a['rows'][0]['elements'][0]['distance']['value']/1000;
+            $time = $response_a['rows'][0]['elements'][0]['duration']['value']/60;
 
             $distance = json_decode(round($distance2,0));
             
